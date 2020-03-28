@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>OpenFOAM几个基本的类 | Here I write</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="VectorSpace, Vector, TensormagVectorSpace 显然是这里最具有一般性最底层的模板类了，Vector和Tensor在它眼里仅是3个元素和9个元素的差别，求mag都一视同仁。 mag在VectorSpace/Vector里面就是所有元素平方和magSqr然后开平方，在Tensor变成9个元素平方和然后开平方。因此一般的Tensor不同重写magSqr，SymmTe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenFOAM几个基本的类">
+<meta property="og:url" content="http://yoursite.com/2018/10/09/someClasses/index.html">
+<meta property="og:site_name" content="Here I write">
+<meta property="og:description" content="VectorSpace, Vector, TensormagVectorSpace 显然是这里最具有一般性最底层的模板类了，Vector和Tensor在它眼里仅是3个元素和9个元素的差别，求mag都一视同仁。 mag在VectorSpace/Vector里面就是所有元素平方和magSqr然后开平方，在Tensor变成9个元素平方和然后开平方。因此一般的Tensor不同重写magSqr，SymmTe">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-28T08:46:18.888Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenFOAM几个基本的类">
+<meta name="twitter:description" content="VectorSpace, Vector, TensormagVectorSpace 显然是这里最具有一般性最底层的模板类了，Vector和Tensor在它眼里仅是3个元素和9个元素的差别，求mag都一视同仁。 mag在VectorSpace/Vector里面就是所有元素平方和magSqr然后开平方，在Tensor变成9个元素平方和然后开平方。因此一般的Tensor不同重写magSqr，SymmTe">
+  
+    <link rel="alternate" href="/atom.xml" title="Here I write" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Here I write</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-someClasses" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/09/someClasses/" class="article-date">
+  <time datetime="2018-10-09T14:41:48.000Z" itemprop="datePublished">2018-10-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenFOAM几个基本的类
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VectorSpace-Vector-Tensor"><a href="#VectorSpace-Vector-Tensor" class="headerlink" title="VectorSpace, Vector, Tensor"></a>VectorSpace, Vector, Tensor</h1><h2 id="mag"><a href="#mag" class="headerlink" title="mag"></a>mag</h2><p>VectorSpace 显然是这里最具有一般性最底层的模板类了，Vector和Tensor在它眼里仅是3个元素和9个元素的差别，求<code>mag</code>都一视同仁。</p>
+<p><code>mag</code>在VectorSpace/Vector里面就是所有元素平方和<code>magSqr</code>然后开平方，在Tensor变成9个元素平方和然后开平方。因此一般的Tensor不同重写<code>magSqr</code>，SymmTensor因为其形式特别就重写了<code>magSqr</code>，如此替换掉最一般的<code>magSqr</code>,对SymmTensor仍然可以进行<code>mag</code>操作，为什么呢？因为SymmTensor是Tensor是VectorSpace里面的元素，因此一定就有<code>mag</code>，此时母类<code>mag</code>调用的是SymmTensor版本的<code>magSqr</code>。</p>
+<h2 id="外积"><a href="#外积" class="headerlink" title="外积"></a>外积</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"vector.H"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensor.H"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"IOstreams.H"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Foam;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    Info&lt;&lt; vector::zero &lt;&lt; endl</span></span><br><span class="line"><span class="comment">        &lt;&lt; vector::one &lt;&lt; endl</span></span><br><span class="line"><span class="comment">        &lt;&lt; vector::dim &lt;&lt; endl</span></span><br><span class="line"><span class="comment">        &lt;&lt; vector::rank &lt;&lt; endl;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span> <span class="title">a</span><span class="params">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span></span>;</span><br><span class="line">    Info &lt;&lt; <span class="string">"a = "</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    Info &lt;&lt; <span class="string">"a*a = "</span> &lt;&lt; a*a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果将<code>#include &quot;tensor.H&quot;</code>注释掉会报一个比较长的错：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">$ wmake</span><br><span class="line">Making dependency list <span class="keyword">for</span> <span class="built_in">source</span> file Test-vector.C</span><br><span class="line">SOURCE=Test-vector.C ;  OMPI_CXX=<span class="string">"g++"</span> mpicxx -Dlinux64 -DWM_DP -Wall -Wextra -Wno-unused-parameter -Wold-style-cast -Wnon-virtual-dtor -O2 -march=native -fuse-ld=bfd  -DNoRepository -ftemplate-depth-100  -IlnInclude -I. -I/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude -I/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OSspecific/POSIX/lnInclude   -fPIC -c <span class="variable">$SOURCE</span> -o Make/linux64GccDPOpt/Test-vector.o</span><br><span class="line">OMPI_CXX=<span class="string">"g++"</span> mpicxx -Dlinux64 -DWM_DP -Wall -Wextra -Wno-unused-parameter -Wold-style-cast -Wnon-virtual-dtor -O2 -march=native -fuse-ld=bfd  -DNoRepository -ftemplate-depth-100  -IlnInclude -I. -I/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude -I/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OSspecific/POSIX/lnInclude   -fPIC -Xlinker --add-needed -Xlinker --no-as-needed Make/linux64GccDPOpt/Test-vector.o -L/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/platforms/linux64GccDPOpt/lib \</span><br><span class="line">      -lOpenFOAM -ldl   -lm -o /home/hluo/OpenFOAM/hluo-2.3.1/platforms/linux64GccDPOpt/bin/Test-vector</span><br><span class="line">[hluo@zaurak userVector]$ vim Test-vector.C </span><br><span class="line">[hluo@zaurak userVector]$ wmake</span><br><span class="line">Making dependency list <span class="keyword">for</span> <span class="built_in">source</span> file Test-vector.C</span><br><span class="line">SOURCE=Test-vector.C ;  OMPI_CXX=<span class="string">"g++"</span> mpicxx -Dlinux64 -DWM_DP -Wall -Wextra -Wno-unused-parameter -Wold-style-cast -Wnon-virtual-dtor -O2 -march=native -fuse-ld=bfd  -DNoRepository -ftemplate-depth-100  -IlnInclude -I. -I/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude -I/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OSspecific/POSIX/lnInclude   -fPIC -c <span class="variable">$SOURCE</span> -o Make/linux64GccDPOpt/Test-vector.o</span><br><span class="line">Test-vector.C: In <span class="keyword">function</span> ‘int main()’:</span><br><span class="line">Test-vector.C:18:23: error: no match <span class="keyword">for</span> ‘operator*’ (operand types are ‘Foam::vector &#123;aka Foam::Vector&lt;double&gt;&#125;’ and ‘Foam::vector &#123;aka Foam::Vector&lt;double&gt;&#125;’)</span><br><span class="line">  Info &lt;&lt; <span class="string">"a*a = "</span> &lt;&lt; a*a &lt;&lt; endl;</span><br><span class="line">                       ^</span><br><span class="line">Test-vector.C:18:23: note: candidates are:</span><br><span class="line">In file included from /home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/VectorSpace.H:168:0,</span><br><span class="line">                 from /home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/Vector.H:44,</span><br><span class="line">                 from /home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/vector.H:39,</span><br><span class="line">                 from Test-vector.C:1:</span><br><span class="line">/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/VectorSpaceI.H:552:13: note: template&lt;class Form, class Cmpt, int nCmpt&gt; Form Foam::operator*(Foam::scalar, const Foam::VectorSpace&lt;Form, Cmpt, nCmpt&gt;&amp;)</span><br><span class="line"> inline Form operator*</span><br><span class="line">             ^</span><br><span class="line">/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/VectorSpaceI.H:552:13: note:   template argument deduction/substitution failed:</span><br><span class="line">Test-vector.C:18:24: note:   cannot convert ‘a’ (<span class="built_in">type</span> ‘Foam::vector &#123;aka Foam::Vector&lt;double&gt;&#125;’) to <span class="built_in">type</span> ‘Foam::scalar &#123;aka double&#125;’</span><br><span class="line">  Info &lt;&lt; <span class="string">"a*a = "</span> &lt;&lt; a*a &lt;&lt; endl;</span><br><span class="line">                        ^</span><br><span class="line">In file included from /home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/VectorSpace.H:168:0,</span><br><span class="line">                 from /home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/Vector.H:44,</span><br><span class="line">                 from /home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/vector.H:39,</span><br><span class="line">                 from Test-vector.C:1:</span><br><span class="line">/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/VectorSpaceI.H:565:13: note: template&lt;class Form, class Cmpt, int nCmpt&gt; Form Foam::operator*(const Foam::VectorSpace&lt;Form, Cmpt, nCmpt&gt;&amp;, Foam::scalar)</span><br><span class="line"> inline Form operator*</span><br><span class="line">             ^</span><br><span class="line">/home/hluo/.<span class="built_in">local</span>/easybuild/software/OpenFOAM/2.3.1-foss-2016a/OpenFOAM-2.3.1/src/OpenFOAM/lnInclude/VectorSpaceI.H:565:13: note:   template argument deduction/substitution failed:</span><br><span class="line">Test-vector.C:18:24: note:   cannot convert ‘a’ (<span class="built_in">type</span> ‘Foam::vector &#123;aka Foam::Vector&lt;double&gt;&#125;’) to <span class="built_in">type</span> ‘Foam::scalar &#123;aka double&#125;’</span><br><span class="line">  Info &lt;&lt; <span class="string">"a*a = "</span> &lt;&lt; a*a &lt;&lt; endl;</span><br><span class="line">                        ^</span><br><span class="line">make: *** [Make/linux64GccDPOpt/Test-vector.o] Error 1</span><br></pre></td></tr></table></figure></p>
+<p>报错的意思是我们找<code>Foam::Vector&lt;double&gt;</code>与<code>Foam::Vector&lt;double&gt;</code>之间的<code>operator*</code>找不到，只能有后面vector前面scalar的<code>operator*</code>（分别在VectorSpaceI.H:552和VectorSpaceI.H:565），但因为vector,tensor和VectorSpace是由一种复杂的方式耦合在一起的，所以并没有报一个找不到俩vector的外积。但如果加上”tensor.H”一切都对了，输出结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ Test-vector </span><br><span class="line">a = (1 2 3)</span><br><span class="line">a*a = (1 2 3 2 4 6 3 6 9)</span><br></pre></td></tr></table></figure>
+<h1 id="List"><a href="#List" class="headerlink" title="List"></a>List</h1><p><code>List</code> and <code>UList</code> are different. <code>List a(10)</code> then <code>a.append(something)</code> will append to the tail of the initialized <code>a</code> resulting a <code>a[11]=something</code>  hha</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/09/someClasses/" data-id="ck8bfjmkh0007niv1csnz35z7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/31/OpenFOAM/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OpenFOAM
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/06/QandA/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Q&amp;A</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/31/OpenFOAM/">OpenFOAM</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/someClasses/">OpenFOAM几个基本的类</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/06/QandA/">Q&amp;A</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/26/LinuxCheatSheet/">Linux Cheat Sheet</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/cheat/">cheat</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Haining<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

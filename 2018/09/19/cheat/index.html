@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>cheat | Here I write</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如何骗OpenFOAMtimeDir篇如果小心输出时间步全部刚好差了0.01怎么办，例如[5,7]变成了[5.01,7.01]，timeDir里面的U,p都有个冠冕堂皇的location的值对应时间。但其实可以把目录5.01改成5，7.01改成7，这时比如要续算，solver便认为对应的时间步其实是5和7。似乎sample这些utility也可以这样骗[待确认]。 一句话：外面的目录名是个“货真价">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cheat">
+<meta property="og:url" content="http://yoursite.com/2018/09/19/cheat/index.html">
+<meta property="og:site_name" content="Here I write">
+<meta property="og:description" content="如何骗OpenFOAMtimeDir篇如果小心输出时间步全部刚好差了0.01怎么办，例如[5,7]变成了[5.01,7.01]，timeDir里面的U,p都有个冠冕堂皇的location的值对应时间。但其实可以把目录5.01改成5，7.01改成7，这时比如要续算，solver便认为对应的时间步其实是5和7。似乎sample这些utility也可以这样骗[待确认]。 一句话：外面的目录名是个“货真价">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/09/19/cheat/paraRun.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/19/cheat/serialRun.png">
+<meta property="og:updated_time" content="2020-03-28T08:46:18.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cheat">
+<meta name="twitter:description" content="如何骗OpenFOAMtimeDir篇如果小心输出时间步全部刚好差了0.01怎么办，例如[5,7]变成了[5.01,7.01]，timeDir里面的U,p都有个冠冕堂皇的location的值对应时间。但其实可以把目录5.01改成5，7.01改成7，这时比如要续算，solver便认为对应的时间步其实是5和7。似乎sample这些utility也可以这样骗[待确认]。 一句话：外面的目录名是个“货真价">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/19/cheat/paraRun.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Here I write" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Here I write</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-cheat" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/19/cheat/" class="article-date">
+  <time datetime="2018-09-19T14:20:33.000Z" itemprop="datePublished">2018-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cheat
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="如何骗OpenFOAM"><a href="#如何骗OpenFOAM" class="headerlink" title="如何骗OpenFOAM"></a>如何骗OpenFOAM</h1><h2 id="timeDir篇"><a href="#timeDir篇" class="headerlink" title="timeDir篇"></a>timeDir篇</h2><p>如果小心输出时间步全部刚好差了0.01怎么办，例如[5,7]变成了[5.01,7.01]，timeDir里面的<code>U,p</code>都有个冠冕堂皇的<code>location</code>的值对应时间。但其实可以把目录<code>5.01</code>改成<code>5</code>，<code>7.01</code>改成<code>7</code>，这时比如要续算，solver便认为对应的时间步其实是<code>5</code>和<code>7</code>。似乎sample这些utility也可以这样骗[待确认]。</p>
+<p>一句话：外面的目录名是个“货真价实”的幌子，可以欺骗solver和utility</p>
+<h1 id="如何被OpenFOAM骗"><a href="#如何被OpenFOAM骗" class="headerlink" title="如何被OpenFOAM骗"></a>如何被OpenFOAM骗</h1><h2 id="setFields"><a href="#setFields" class="headerlink" title="setFields"></a>setFields</h2><p>setFields用于在internalField里面写一个值。选择区域最常用的估计是<code>boxToCell</code>，但定义<code>box</code>有格式<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">box (x1 y1 z1) (x2 y2 z2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里必须有 x1 &lt; x2, y1 &lt; y2, z1 &lt; z2</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不符合上述规范，不会有报错，但不会在internalField里面有写任何的值</p>
+<p>这里给出一个符合规范的setFieldsDict<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">FoamFile</span><br><span class="line">&#123;</span><br><span class="line">    version     <span class="number">2.0</span>;</span><br><span class="line">    format      ascii;</span><br><span class="line">    <span class="class"><span class="keyword">class</span>       <span class="title">dictionary</span>;</span></span><br><span class="line">    location    <span class="string">"system"</span>;</span><br><span class="line">    object      setFieldsDict;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //</span></span><br><span class="line"></span><br><span class="line">defaultFieldValues</span><br><span class="line">(</span><br><span class="line">    volScalarFieldValue T <span class="number">0</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">regions</span><br><span class="line">(</span><br><span class="line">    boxToCell</span><br><span class="line">    &#123;</span><br><span class="line">        box (<span class="number">-0.004</span> <span class="number">-0.08</span> <span class="number">-0.004</span>) (<span class="number">0.004</span> <span class="number">-0.004</span> <span class="number">0.004</span>);</span><br><span class="line">        fieldValues</span><br><span class="line">        (</span><br><span class="line">            volScalarFieldValue T <span class="number">1</span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<h2 id="probes"><a href="#probes" class="headerlink" title="probes"></a>probes</h2><p>OpenFOAM本身的probes如果刚好碰上网格边上会有warning<br>属于functionObjects，在simu的同时运行，如果想要postProcssing，用execFlow…，但是：需要在constrolDict里面加入,自己写的BC会有奇怪报错…<br>对策：用wyldckat写的，摘干净的最通用的ExecFunctionObjects，把所有的functionObject都放在system/system/controlDict.functions，这样就可以分开了</p>
+<h2 id="reconstructPar与decomposePar"><a href="#reconstructPar与decomposePar" class="headerlink" title="reconstructPar与decomposePar"></a>reconstructPar与decomposePar</h2><p>这俩不互为反函数，如果要用这种方式完成binary和ascii的转换，一定double check BC，因为BC可能被改写</p>
+<p>一句话：reconstructPar/decomposePar 一定要看好BC</p>
+<h2 id="reconstructed-case-or-decomposed-case"><a href="#reconstructed-case-or-decomposed-case" class="headerlink" title="reconstructed case or decomposed case"></a>reconstructed case or decomposed case</h2><p>paraview中有这个选项，然而，经历reconstructPar或者decomposePar后BC可能被篡改，所以单纯看边界的话有可能会被吓倒在地，怎么可能！同一个时间步decompose情况下用paraview看BC上的值好好的，结果reconstructPar之后paraview一看……面目全非！这种差异在numberOfSubdomains更容易出现(例如120)，而设置成4就有可能没问题，可能可以算作bug。当然也许是我写出来的bug，毕竟有的边界value要生成随机数，我随机种子又没变。</p>
+<p>一句话：当你看到reconstruct之后的BC不对的时候，即使processor*已经被清空了，此时也不用慌，再一次decomposePar帮你恢复BC（至于numberOfSubdomains设置为多少，最好跟并行算的时候一样吧）。即使又出了什么幺蛾子BC的值不能恢复，至少internalField的值不会被动到</p>
+<p>上图，这个就是我并行120个核算出来之后想都没想就reconstructPar的效果，一脸懵<br><img src="/2018/09/19/cheat/paraRun.png" alt="reconstructPar之后"><br>但把原数据也就是放在processor*里面的数据用paraview来看的时候就变成了下图，用<code>numberOfSubdomains=120</code>再重新decomposePar也是一样的效果<br><img src="/2018/09/19/cheat/serialRun.png" alt="decomposedCase"></p>
+<h2 id="同一个类的不同变种编译为不同名字的lib"><a href="#同一个类的不同变种编译为不同名字的lib" class="headerlink" title="同一个类的不同变种编译为不同名字的lib"></a>同一个类的不同变种编译为不同名字的lib</h2><p>如上，如果想要将多个lib混用在一个case里面，在system/controlDict里面都加入lib是必须的，但其实这样不行，做不到混用。如何做到呢？需要修改类的名字，并与makePatchTypeField(fvPatchVectorField, pVFvPatchVectorField2Dpf_Port1)这个macro function对应，这样不仅lib名字不同其实里面的类也不同，这样就可以混用了。</p>
+<h2 id="cyclic"><a href="#cyclic" class="headerlink" title="cyclic"></a>cyclic</h2><p><code>U,p</code>设置周期性条件后，在生成的数据里type为<code>cyclic</code>你会发现<code>U,p</code>都没有value，仅有一个type (<code>phi</code>却有，也是<code>cyclic</code>类型).那为啥我用<code>patchIntegrate U inlet</code>又不是零呢？经过仔细地看源码和比对<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读入U，找到cyclic对应的patchLabel</span></span><br><span class="line"></span><br><span class="line">Info &lt;&lt; U.boundaryField()[patchLabel] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">你猜输出什么？</span></span><br><span class="line"><span class="comment">type            cyclic;</span></span><br><span class="line"><span class="comment">仅有type！没有value？不过，读入的就是这样的数据(volVectorField.boundaryField()[cyclic patch])，输出这样的数据也在情理之中</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line">vectorField&amp; Ub_cyclic = U.boundaryField()[patchLabel]</span><br><span class="line">Info &lt;&lt; Ub_cyclic &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">看输出...就有了，不过vectorField有type，这个似乎也不是特别有道理，毕竟vectorField仅仅是List&lt;vector&gt;</span></span><br><span class="line"><span class="comment">type            cyclic;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">16900</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">...</span></span><br><span class="line"><span class="comment">...</span></span><br><span class="line"><span class="comment">...</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 参照patchIntegrate.C，里面没有输出整个List而仅仅输出sum；于是我在同样的patch上面求sum输出，计算结果是一样的</span></span><br><span class="line">Info &lt;&lt; sum(U.boundaryField()[patchLabel]) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">Info &lt;&lt; sum(Ub_cyclic) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">(11560.70065 80.71560542 3.732255509)</span></span><br><span class="line"><span class="comment">(11560.70065 80.71560542 3.732255509)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 所以可能是GeometricBoundaryField类对cyclic type输出的问题？？</span></span><br></pre></td></tr></table></figure></p>
+<p>这里得出的结论是：<code>U</code>和<code>p</code>在数据文件里面，boundaryField项的其中一个patch上有可能仅有type（例如cyclic），但没有value，这不意味着<code>U.boundaryField()[cyclic patch]</code>上面没有值。简单地来说：当你看数据文件里面边界上没有值，并不是真的没有值，边界上还可以算通量呢！<br>PS : <code>phi</code>同为<code>cyclic</code>类型，但边界上却有值，且value写在数据文件里</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/19/cheat/" data-id="ck8bfjmhw0002niv122hxbfrt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/26/LinuxCheatSheet/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux Cheat Sheet
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/26/checkList/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CheckList</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/31/OpenFOAM/">OpenFOAM</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/someClasses/">OpenFOAM几个基本的类</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/06/QandA/">Q&amp;A</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/26/LinuxCheatSheet/">Linux Cheat Sheet</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/cheat/">cheat</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Haining<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

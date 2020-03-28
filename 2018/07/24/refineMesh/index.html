@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>refineMesh局部加密 | Here I write</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="流程从算例的层面来看应该分三步走才算完成了网格加密和初始条件设置:  对于网格整体或者部分(topoSet)进行加密 写入新网格 新网格下的流场初始化(mapFields)  使用topoSet确定cellSet可以用cylinderToCell或者其他的source，输入为几何外形，输出为cellSet，最好将对应的topoSetDict的名字改为和输出set名字相同12345678#!/bin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="refineMesh局部加密">
+<meta property="og:url" content="http://yoursite.com/2018/07/24/refineMesh/index.html">
+<meta property="og:site_name" content="Here I write">
+<meta property="og:description" content="流程从算例的层面来看应该分三步走才算完成了网格加密和初始条件设置:  对于网格整体或者部分(topoSet)进行加密 写入新网格 新网格下的流场初始化(mapFields)  使用topoSet确定cellSet可以用cylinderToCell或者其他的source，输入为几何外形，输出为cellSet，最好将对应的topoSetDict的名字改为和输出set名字相同12345678#!/bin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/07/24/refineMesh/topoSet_T.png">
+<meta property="og:updated_time" content="2020-03-28T08:46:18.884Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="refineMesh局部加密">
+<meta name="twitter:description" content="流程从算例的层面来看应该分三步走才算完成了网格加密和初始条件设置:  对于网格整体或者部分(topoSet)进行加密 写入新网格 新网格下的流场初始化(mapFields)  使用topoSet确定cellSet可以用cylinderToCell或者其他的source，输入为几何外形，输出为cellSet，最好将对应的topoSetDict的名字改为和输出set名字相同12345678#!/bin">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/24/refineMesh/topoSet_T.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Here I write" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Here I write</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-refineMesh" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/24/refineMesh/" class="article-date">
+  <time datetime="2018-07-24T09:54:43.000Z" itemprop="datePublished">2018-07-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      refineMesh局部加密
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><p>从算例的层面来看应该分三步走才算完成了网格加密和初始条件设置:</p>
+<ol>
+<li>对于网格整体或者部分(topoSet)进行加密</li>
+<li>写入新网格</li>
+<li>新网格下的流场初始化(mapFields)</li>
+</ol>
+<h2 id="使用topoSet确定cellSet"><a href="#使用topoSet确定cellSet" class="headerlink" title="使用topoSet确定cellSet"></a>使用topoSet确定cellSet</h2><p>可以用<code>cylinderToCell</code>或者其他的<code>source</code>，输入为几何外形，输出为cellSet，最好将对应的topoSetDict的名字改为和输出set名字相同<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">topoSetDict=system/topoSetDict                    </span><br><span class="line">setName=branch_Port2_5D_1                         <span class="comment"># 一个topoSetDict对象，取名branch_Port2_5D_1</span></span><br><span class="line"></span><br><span class="line">topoSet -dict <span class="variable">$topoSetDict</span>/<span class="variable">$setName</span> &gt; log.topoSet <span class="comment"># 写入到constant/polyMesh/sets/&#123;branch_Port2_5D_1  nonOrthoFaces  refinedCells&#125;</span></span><br><span class="line"></span><br><span class="line">foamToVTK -cellSet <span class="variable">$setName</span> -latestTime           <span class="comment"># 将OpenFOAM数据格式转换为vtk格式，此步骤需有时间目录，生成文件在VTK目录下</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/07/24/refineMesh/topoSet_T.png" alt><br>图里彩色部分就是topoSet选定的区域，透明部分是网格整体</p>
+<h2 id="网格加密"><a href="#网格加密" class="headerlink" title="网格加密"></a>网格加密</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">checkMesh &gt; log.checkOrgMesh</span><br><span class="line">setToRefine=branch_Port2_5D_1                     <span class="comment"># 一个refineMeshDict对象，取名branch_Port2_5D_1</span></span><br><span class="line"></span><br><span class="line">refineMeshDict=system/refineMeshDict</span><br><span class="line"></span><br><span class="line">refineMesh -dict <span class="variable">$refineMeshDict</span>/<span class="variable">$setToRefine</span> -overwrite &gt; log.refineMesh <span class="comment"># this will write "polyMesh/cellMap" to startTime dir</span></span><br><span class="line"></span><br><span class="line">checkMesh &gt; log.checkRefinedMesh</span><br></pre></td></tr></table></figure>
+<p>如果不加overwrite，新的网格会写入到以startTime为基准的下一个时间目录里（包括cellMap），加了overwrite新的网格就改写constant/polyMesh，这样新的case网格仍然在标准的constant位置</p>
+<h2 id="初始条件（场）设置"><a href="#初始条件（场）设置" class="headerlink" title="初始条件（场）设置"></a>初始条件（场）设置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">sourcedir=some/<span class="built_in">source</span>/<span class="keyword">case</span>/with/original/mesh/and/field/data/we/are/mapping</span><br><span class="line"></span><br><span class="line">mapFields <span class="variable">$sourcedir</span> -<span class="keyword">case</span> . -noFunctionObjects -fields <span class="string">'(U p)'</span> -sourceTime <span class="string">'7'</span> -targetRegion region0 &gt; log.mapFields_7 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<p>在target case里面一定要设置好mapFieldsDict，因为这里我选择不用consistent（虽然按照OpenFOAM说明geoemetry和BC都对应一模一样，按理可以尝试）。由于这个操作串行费内存且费时间而且可能在最后时刻幺蛾子，所以建议是先用网格较少的source和target来尝试，排除bug，然后根据checkList来保障每一步的可靠性。有尝试过在实验室机群上的单节点大内存单核上跑，但因为我本地的工作站cpu还更好，测试的结果是在内存允许的情况下使用工作站来进行这个操作。当然，手头刚拿到<a href="https://www.top500.org/list/2018/06/?page=1" target="_blank" rel="noopener">occigen</a>的计算资源，直接在登陆节点(interactively)对10M网格算例做240个核的decomposePar效率非常高，三分钟就完成，希望mapFields也很快！自答：事实是occigen做一个从1.5M到10M网格的mapFields也要整整1h。验证了那句话“愿望很美好，现实很骨感“。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/24/refineMesh/" data-id="ck8bfjmi20005niv1u0fr87jz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/07/26/checkList/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CheckList
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/15/aboutPython/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python相关</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/31/OpenFOAM/">OpenFOAM</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/someClasses/">OpenFOAM几个基本的类</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/06/QandA/">Q&amp;A</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/26/LinuxCheatSheet/">Linux Cheat Sheet</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/cheat/">cheat</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Haining<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

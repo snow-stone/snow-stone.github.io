@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Local_Refinement | Here I write</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="局部网格加密基于tutorial里面cavity完全正交的网格(拓展为3D)，通过topoSet选定一个cellSet，用refineMesh进行局部加密。icoFoam求解器识别并接受这样局部加密的存在但对局部加密后的网格使用checkMesh会“检查出”polyhedra，而且non-orthogonality Max也会变差。 checkList1234567891011topoSet &amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Local_Refinement">
+<meta property="og:url" content="http://yoursite.com/2018/07/12/Local-Refinement/index.html">
+<meta property="og:site_name" content="Here I write">
+<meta property="og:description" content="局部网格加密基于tutorial里面cavity完全正交的网格(拓展为3D)，通过topoSet选定一个cellSet，用refineMesh进行局部加密。icoFoam求解器识别并接受这样局部加密的存在但对局部加密后的网格使用checkMesh会“检查出”polyhedra，而且non-orthogonality Max也会变差。 checkList1234567891011topoSet &amp;g">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/07/12/Local-Refinement/check_DecomposePolyhedra.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/12/Local-Refinement/unCheck_DecomposePolyhedra.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/12/Local-Refinement/foamToVTK_front.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/12/Local-Refinement/foamToVTK_op-poly_front.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/12/Local-Refinement/foamToVTK_op-poly_back.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/12/Local-Refinement/foamToVTK_op-poly_anotherAngle.png">
+<meta property="og:updated_time" content="2020-03-28T08:46:18.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Local_Refinement">
+<meta name="twitter:description" content="局部网格加密基于tutorial里面cavity完全正交的网格(拓展为3D)，通过topoSet选定一个cellSet，用refineMesh进行局部加密。icoFoam求解器识别并接受这样局部加密的存在但对局部加密后的网格使用checkMesh会“检查出”polyhedra，而且non-orthogonality Max也会变差。 checkList1234567891011topoSet &amp;g">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/12/Local-Refinement/check_DecomposePolyhedra.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Here I write" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Here I write</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Local-Refinement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/12/Local-Refinement/" class="article-date">
+  <time datetime="2018-07-12T12:59:41.000Z" itemprop="datePublished">2018-07-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Local_Refinement
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="局部网格加密"><a href="#局部网格加密" class="headerlink" title="局部网格加密"></a>局部网格加密</h1><p>基于tutorial里面cavity完全正交的网格(拓展为3D)，通过<code>topoSet</code>选定一个<code>cellSet</code>，用refineMesh进行局部加密。icoFoam求解器识别并接受这样局部加密的存在但对局部加密后的网格使用<code>checkMesh</code>会“检查出”polyhedra，而且non-orthogonality Max也会变差。</p>
+<h2 id="checkList"><a href="#checkList" class="headerlink" title="checkList"></a>checkList</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">topoSet &gt; log.topoSet <span class="comment"># boxToCell</span></span><br><span class="line"></span><br><span class="line">checkMesh &gt; log.checkOrgMesh</span><br><span class="line"></span><br><span class="line">refineMesh -dict system/refineMeshDict -overwrite &gt; log.refineMesh </span><br><span class="line"><span class="comment"># 不加overwrite网格会写在时间步目录里</span></span><br><span class="line"><span class="comment"># refineMesh 默认是一分为二，三个方向一分为二就是八倍网格数</span></span><br><span class="line"></span><br><span class="line">checkMesh &gt; log.checkMesh</span><br><span class="line"><span class="comment"># 不再具有网格诊断价值</span></span><br></pre></td></tr></table></figure>
+<h2 id="polyhedra-Non-orthogonal"><a href="#polyhedra-Non-orthogonal" class="headerlink" title="polyhedra? Non-orthogonal?"></a>polyhedra? Non-orthogonal?</h2><p>因为level0的大网格被分割成了level1的小面，所以曾经level0的六面体，如果有一个面被分割现在就是9面体，如果有两个面被分割现在就是12面体，三个面那就是15面体。从形状上判定仍然还是纯正交网格，但从“面的个数”上就不是。因为面只能被两个网格共享。<br>局部加密造成了拓扑的改变，从下面的结果看来checkMesh给出的non-orthogonality不再正确。不正确？因为网格如果仍旧正交应该是<code>Mesh non-orthogonality Max: 0 average: 0</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ diff log.checkOrgMesh log.checkMesh</span><br><span class="line">&lt;     Minimum face area = 2.5e-05. Maximum face area = 2.5e-05.  Face area magnitudes OK.</span><br><span class="line">&lt;     Min volume = 1.25e-07. Max volume = 1.25e-07.  Total volume = 0.00025.  Cell volumes OK.</span><br><span class="line">&lt;     Mesh non-orthogonality Max: 0 average: 0</span><br><span class="line">---</span><br><span class="line">&gt;     Minimum face area = 6.25e-06. Maximum face area = 2.5e-05.  Face area magnitudes OK.</span><br><span class="line">&gt;     Min volume = 1.5625e-08. Max volume = 1.25e-07.  Total volume = 0.00025.  Cell volumes OK.</span><br><span class="line">&gt;     Mesh non-orthogonality Max: 25.2394 average: 4.00976</span><br><span class="line">75c79</span><br><span class="line">&lt;     Max skewness = 2e-08 OK.</span><br><span class="line">---</span><br><span class="line">&gt;     Max skewness = 0.333333 OK.</span><br></pre></td></tr></table></figure></p>
+<p>有试过在复杂网格的局部进行三个方向的加密，<code>non-orthogonality Max</code>增加了同样神奇的数值25，至于是不是从来都是25，为什么是25我就不知道了。</p>
+<h2 id="真的还是正交网格吗？"><a href="#真的还是正交网格吗？" class="headerlink" title="真的还是正交网格吗？"></a>真的还是正交网格吗？</h2><p>按照cfd-forum上面所说：是的！还有人讨论关于怎么将网格“正确地”可视化地问题，总结如下：paraview可以直接读OpenFOAM格式的网格，但需要把<code>Decompose Polyhedra</code>选项给关掉;<code>foamToVTK</code>加上option<code>-poly</code>后再用paraview来读。   </p>
+<p>前者：<code>Decompose Polyhedra</code>需要在读入<code>*.foam</code>后（点apply前），点properties里面搜索栏右边小齿轮才会在下面出现，默认值是勾取，这里需要“去勾”。上图<br><img src="/2018/07/12/Local-Refinement/check_DecomposePolyhedra.png" alt="paraview"><br>这里是默认值，看到有奇怪的对角线，似乎网格不再正交<br><img src="/2018/07/12/Local-Refinement/unCheck_DecomposePolyhedra.png" alt="paraview uncheck Decompose Polyhedra后"><br>去勾后恢复本来面貌</p>
+<p>后者：<code>foamToVTK</code>会生成体数据和面数据，读入体数据。<br><img src="/2018/07/12/Local-Refinement/foamToVTK_front.png" alt="不加-poly"><br>不加option同样会显示不规则的网格，这里可以注意一下vtk文件里面可以选择用<code>cellID</code>染色，有意思。<br><img src="/2018/07/12/Local-Refinement/foamToVTK_op-poly_front.png" alt="加上-poly正面"><br>加上option后的正面<br><img src="/2018/07/12/Local-Refinement/foamToVTK_op-poly_back.png" alt="加上-poly背面"><br>加上option后的背面<br><img src="/2018/07/12/Local-Refinement/foamToVTK_op-poly_anotherAngle.png" alt="加上-poly另一个角度看侧面"><br>加上option后，再从另外一个角度来看，能大概看出个<code>cellID</code>排序的规律。当然这样“视觉”的规律没有用，算例复杂之后就很难有视觉规律了，毕竟程序是按照“逻辑”规律工作。</p>
+<h2 id="总结与checkList后续"><a href="#总结与checkList后续" class="headerlink" title="总结与checkList后续"></a>总结与checkList后续</h2><p>局部加密虽好，但checkMesh对生成的网格不再有准确的诊断能力，而对于OpenFOAM格式的网格直接的诊断工具仅有checkMesh，所以只能考虑转换网格格式用其他软件诊断（不过还不知道能不能正确识别这些局部加密的网格呢！）。另外一方面要注意的是局部加密后网格数变大了，比如之前算过的统计收敛的流场不能直接续算（数组不一样大了嘛），需要<code>mapFields</code>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/12/Local-Refinement/" data-id="ck8bfjmgr0001niv164l4zp0q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/07/15/aboutPython/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python相关
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/05/openfoamIntro/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">OpenFOAM入门</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/31/OpenFOAM/">OpenFOAM</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/someClasses/">OpenFOAM几个基本的类</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/06/QandA/">Q&amp;A</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/26/LinuxCheatSheet/">Linux Cheat Sheet</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/cheat/">cheat</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Haining<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

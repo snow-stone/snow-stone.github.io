@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Q&amp;A | Here I write</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这里显然是自问自答区如何做出成体系好debug的后处理tool chain？答：先用bash把我的user*系列utility连起来，通过文件夹好好组织；后续的python后处理一定要主程序条理清楚，加上合适的输出，去掉冗余输出，有exception control；一个类别的后处理，尽量用同一个python module去实现通用。往具体的说：先做好牛顿流动的case，在一个个case中成长，在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Q&amp;A">
+<meta property="og:url" content="http://yoursite.com/2018/10/06/QandA/index.html">
+<meta property="og:site_name" content="Here I write">
+<meta property="og:description" content="这里显然是自问自答区如何做出成体系好debug的后处理tool chain？答：先用bash把我的user*系列utility连起来，通过文件夹好好组织；后续的python后处理一定要主程序条理清楚，加上合适的输出，去掉冗余输出，有exception control；一个类别的后处理，尽量用同一个python module去实现通用。往具体的说：先做好牛顿流动的case，在一个个case中成长，在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-28T08:46:18.849Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Q&amp;A">
+<meta name="twitter:description" content="这里显然是自问自答区如何做出成体系好debug的后处理tool chain？答：先用bash把我的user*系列utility连起来，通过文件夹好好组织；后续的python后处理一定要主程序条理清楚，加上合适的输出，去掉冗余输出，有exception control；一个类别的后处理，尽量用同一个python module去实现通用。往具体的说：先做好牛顿流动的case，在一个个case中成长，在">
+  
+    <link rel="alternate" href="/atom.xml" title="Here I write" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Here I write</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-QandA" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/06/QandA/" class="article-date">
+  <time datetime="2018-10-05T18:44:18.000Z" itemprop="datePublished">2018-10-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Q&amp;A
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="这里显然是自问自答区"><a href="#这里显然是自问自答区" class="headerlink" title="这里显然是自问自答区"></a>这里显然是自问自答区</h1><h2 id="如何做出成体系好debug的后处理tool-chain？"><a href="#如何做出成体系好debug的后处理tool-chain？" class="headerlink" title="如何做出成体系好debug的后处理tool chain？"></a>如何做出成体系好debug的后处理tool chain？</h2><p>答：先用bash把我的user*系列utility连起来，通过文件夹好好组织；后续的python后处理一定要主程序条理清楚，加上合适的输出，去掉冗余输出，有exception control；一个类别的后处理，尽量用同一个python module去实现通用。往具体的说：先做好牛顿流动的case，在一个个case中成长，在痛苦中净化和进化。</p>
+<h2 id="如何组织DNS数据？"><a href="#如何组织DNS数据？" class="headerlink" title="如何组织DNS数据？"></a>如何组织DNS数据？</h2><p>答：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">|- raw data      <span class="comment"># 原始数据（用于备份） + 文件夹良好组织的小型后处理文件</span></span><br><span class="line">|- visu data     <span class="comment"># 特征时间步的数据（可能比raws小不了多少），用于生成大型的后处理文件(场），paraview save state 等等</span></span><br><span class="line">|- image         <span class="comment"># 把图片分开放</span></span><br><span class="line">|- pythonScript  <span class="comment"># python 都放这里</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="海量数据的存放？"><a href="#海量数据的存放？" class="headerlink" title="海量数据的存放？"></a>海量数据的存放？</h2><p>答：<br>zaurak :<br>+++ 固态硬盘IO速度快效率高，包括查看文件大小也是速度奇快<br><code>/store/</code><br>–  容积小[2T]<br><code>/home/</code><br>–  容积小[170G]</p>
+<p>srv-data-1 :<br>没有空间了，基本弃用</p>
+<p>visu/newton :<br>++ 容积大[4.8T / 66T]<br>++ 用于读写各种操作的内存很足，当zaurak内存不够用则考虑开始启用<br>– 硬盘IO太慢<br><code>/store/lmfa/fct/</code><br>++ 硬盘存储空间足<br>++ 跟zaurak之间传输速度（待估计）比较快<br><code>$HOME</code><br>++  有备份，可放重要数据<br>–  空间太小[1T / 2T]</p>
+<p>occigen :<br>– <code>$STORE</code>[1.5T]只支持<code>*.tar.gz</code>，只能暂时存储<br>– <code>$SCRATCH</code>[4T &amp;&amp; fileNb 600000]<br>   <code>$HOME</code>基本不用</p>
+<h2 id="推公式哪本书好？"><a href="#推公式哪本书好？" class="headerlink" title="推公式哪本书好？"></a>推公式哪本书好？</h2><p>答：<br>Turbulence en mecanique des fluides - P. Chassaing 这本里面的公式灰常好，还带有很多物理解释</p>
+<h2 id="远程可以进行的操作"><a href="#远程可以进行的操作" class="headerlink" title="远程可以进行的操作"></a>远程可以进行的操作</h2><ol>
+<li>提交算例</li>
+<li>zaurak, occigen, newton上都有paraview，可以用script来做一些简单的可视化</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/06/QandA/" data-id="ck8bfjmi40006niv1kxxj4vpr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/09/someClasses/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OpenFOAM几个基本的类
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/26/LinuxCheatSheet/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Linux Cheat Sheet</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/31/OpenFOAM/">OpenFOAM</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/someClasses/">OpenFOAM几个基本的类</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/06/QandA/">Q&amp;A</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/26/LinuxCheatSheet/">Linux Cheat Sheet</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/cheat/">cheat</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Haining<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

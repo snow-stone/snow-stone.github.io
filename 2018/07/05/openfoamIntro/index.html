@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>OpenFOAM入门 | Here I write</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工作环境 Linux vim: 有OpenFOAM关键词自动补全插件 Modules: 模块化管理环境变量 easybuild: easybuild以模块的形式被安装(基于Modules)，相较Modules的优势在于能近似傻瓜安装复杂软件（例如OpenFOAM，因为有人已经将依赖关系以Tool chain的形式写好），如果安装成功，这个软件的环境也将自动以模块的方式配置 eclipse: 虽然代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenFOAM入门">
+<meta property="og:url" content="http://yoursite.com/2018/07/05/openfoamIntro/index.html">
+<meta property="og:site_name" content="Here I write">
+<meta property="og:description" content="工作环境 Linux vim: 有OpenFOAM关键词自动补全插件 Modules: 模块化管理环境变量 easybuild: easybuild以模块的形式被安装(基于Modules)，相较Modules的优势在于能近似傻瓜安装复杂软件（例如OpenFOAM，因为有人已经将依赖关系以Tool chain的形式写好），如果安装成功，这个软件的环境也将自动以模块的方式配置 eclipse: 虽然代">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-28T08:46:18.883Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenFOAM入门">
+<meta name="twitter:description" content="工作环境 Linux vim: 有OpenFOAM关键词自动补全插件 Modules: 模块化管理环境变量 easybuild: easybuild以模块的形式被安装(基于Modules)，相较Modules的优势在于能近似傻瓜安装复杂软件（例如OpenFOAM，因为有人已经将依赖关系以Tool chain的形式写好），如果安装成功，这个软件的环境也将自动以模块的方式配置 eclipse: 虽然代">
+  
+    <link rel="alternate" href="/atom.xml" title="Here I write" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Here I write</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-openfoamIntro" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/05/openfoamIntro/" class="article-date">
+  <time datetime="2018-07-05T06:15:39.000Z" itemprop="datePublished">2018-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenFOAM入门
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="工作环境"><a href="#工作环境" class="headerlink" title="工作环境"></a>工作环境</h1><ol>
+<li>Linux</li>
+<li>vim: 有<a href="https://bitbucket.org/shor-ty/vimextensionopenfoam" target="_blank" rel="noopener">OpenFOAM关键词自动补全插件</a></li>
+<li>Modules: 模块化管理环境变量</li>
+<li>easybuild: easybuild以模块的形式被安装(基于Modules)，相较Modules的优势在于能近似傻瓜安装复杂软件（例如OpenFOAM，因为有人已经将依赖关系以Tool chain的形式写好），如果安装成功，这个软件的环境也将自动以模块的方式配置</li>
+<li>eclipse: 虽然代码自动跳转不全，但看代码的时候用用鼠标也能省点力气</li>
+<li>meld: 对比代码非常好用，相对vim优势在有GUI，diff算法加上颜色高亮</li>
+<li>python: OpenFOAM后处理有时会用到字符串的处理，python本身还有很棒的库，用字典可以将一个case的不同属性参数组合并存储{比如路径，粘性，雷诺数，后处理相关(utility sample后得到postProcessing路径下的数据shape是多大[检查读入数据shape以防溢出或者意外情况]，后处理的时间区间与步长[用于在不同时间目录下读取相应后处理数据])}</li>
+<li>spyder: python IDE，用matplotlib画图便于在同一窗口下实时查看结果，鼠标点击module直接跳转，实时的变量查询。缺点是不能在窗口下生成动画，或者是可以转动的3D图，这种时候改用命令行纯的python解释器就好</li>
+</ol>
+<h1 id="手动编译源码"><a href="#手动编译源码" class="headerlink" title="手动编译源码"></a>手动编译源码</h1><h2 id="在win10上bash子系统ubuntu编译流程"><a href="#在win10上bash子系统ubuntu编译流程" class="headerlink" title="在win10上bash子系统ubuntu编译流程"></a>在win10上bash子系统ubuntu编译流程</h2><ol>
+<li>install libraries including <code>bison</code> required by <code>scotch</code> as indicated in standard intallation guide. Don’t need realy install paraview so leave those extra libaries of openGL aside.</li>
+<li>if the first step is finished, a <code>SYSTEMOPENMPI</code> is then installed (as root in defaut env). Change the <code>etc/bashrc</code> to <code>SYSTEMOPENMPI</code></li>
+<li>as <code>CGAL</code> is only <a href="https://www.cfd-online.com/Forums/openfoam-installation/178509-openfoam-4-0-install-without-foamyhexmesh.html" target="_blank" rel="noopener">optional</a> comment the whole file <code>etc/config/CGAL.sh</code> and in <code>ThirdParty/Allwmake</code> comment out the block for this library</li>
+<li>run Allwmake in ThirdParty</li>
+<li>run Allwmake in OpenFOAM-2.3.x</li>
+<li><code>twophaseEulerFoam yyFlexLexer</code> Error led to <a href="https://www.cfd-online.com/Forums/openfoam-installation/187303-installing-openfoam-2-3-x.html" target="_blank" rel="noopener">flex version error</a>. Act as wyldckat said and solve the problem.</li>
+<li>After compiling all the solvers (last step). Run <code>./Allwmake &gt; log2.summary 2&gt;&amp;1</code> to get a full compilation summary.   </li>
+</ol>
+<h2 id="Debug-build"><a href="#Debug-build" class="headerlink" title="Debug build"></a>Debug build</h2><p>什么时候用到Debug build？当出现比如除以零的情况，Debug模式会给出对应函数的行号。<br>怎么编译？把<code>etc/bashrc</code>里面默认Opt改为Debug，重复上诉流程，编译通常会更慢，编译生成的库不再位于<code>platforms/xxxOpt</code>而是<code>platforms/xxxDebug</code>，两build相互独立。<br>怎么使用？在使用OpenFOAM之前都需要<code>source etc/bashrc</code>，这时候载入flag是Debug的版本就好啦。</p>
+<p>如果要改安装位置到<code>$HOME/LocalSoftware</code>，我把Debug的和原版diff一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ diff bashrc.Debug bashrc.org </span><br><span class="line">45c45</span><br><span class="line">&lt; foamInstall=<span class="variable">$HOME</span>/LocalSoftware/<span class="variable">$WM_PROJECT</span></span><br><span class="line">---</span><br><span class="line">&gt; foamInstall=<span class="variable">$HOME</span>/<span class="variable">$WM_PROJECT</span></span><br><span class="line">79c79</span><br><span class="line">&lt; <span class="built_in">export</span> WM_COMPILE_OPTION=Debug</span><br><span class="line">---</span><br><span class="line">&gt; <span class="built_in">export</span> WM_COMPILE_OPTION=Opt</span><br><span class="line">132c132</span><br><span class="line">&lt; <span class="built_in">export</span> WM_PROJECT_USER_DIR=<span class="variable">$HOME</span>/LocalSoftware/<span class="variable">$WM_PROJECT</span>/<span class="variable">$USER</span>-<span class="variable">$WM_PROJECT_VERSION</span></span><br><span class="line">---</span><br><span class="line">&gt; <span class="built_in">export</span> WM_PROJECT_USER_DIR=<span class="variable">$HOME</span>/<span class="variable">$WM_PROJECT</span>/<span class="variable">$USER</span>-<span class="variable">$WM_PROJECT_VERSION</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="通过EasyBuild安装"><a href="#通过EasyBuild安装" class="headerlink" title="通过EasyBuild安装"></a>通过EasyBuild安装</h2><p>用module更集成的方式配置环境。<br>优点是像公用并行集群上一样统一规范，且依赖关系已经配置好。<br>缺点是个别OpenFOAM版本安装不上。<br>折衷：可以用机群上的MPI来做自己<code>$HOME</code>下的编译，不用等着管理员来安装OpenFOAM。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ol>
+<li>最重要的ThirdParty里面的库有openmpi(这个流程里面用了系统安装的mpi即SYSTEMOPENMPI)，还有就是scotch和ptscotch（对应并行求解前的decomposePar分解求解域到进程，其中最常用的method叫scotch）</li>
+<li>CGAL库可以注释掉至少我用不到foamyhexMesh</li>
+<li>flex的问题可能会碰到，按照帖子指出的解决就好</li>
+<li>编译流程到最后才是编译求解器，因为是最顶层</li>
+</ol>
+<p>教训：编译时间成本较大，想把其中大部分的库的依赖关系搞清楚未必是个有意义的工作，所以尽量先按照流程用最简单（apt-get）的方式来获得依赖的库。比如我就栽过一次在机群的老gcc版本上，编译OpenFOAM-2.3.x用的gcc我推荐至少4.9.2。事先很难把信息汇总全面，没法子，就是得积累经验。<br>手动编译的好处：安装的位置在<code>$HOME</code>下，在用户权限内运作，干净、标准、规范且修改方便。</p>
+<h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><p>待汇总</p>
+<h1 id="初学有用的技巧"><a href="#初学有用的技巧" class="headerlink" title="初学有用的技巧"></a>初学有用的技巧</h1><ol start="0">
+<li>在计算过程中（提交算例后有个申请的计算时长），发现CFL比较大时间步<code>deltaT</code>可以实时改小，可以修改输出间隔，包括粘性<code>nu</code>(这个是因为createFields.H里面<code>MUST_READ_IF_MODIFIED</code>)都属于runTime-modifiable。湍流模型、边界条件（不确定）、求解器设置(<code>fvSolution</code>和<code>fvScheme</code>)属于runTime-selectable。</li>
+<li>changeDictionary</li>
+<li>topoSet : topoSet 不仅可以得到一个labelList，而且这个labelList还可以用paraview可视化。假如<code>cellSet</code>名为<code>cylTurbGenerator</code>，<code>foamToVTK -cellSet cylTurbGenerator -latestTime</code> 这样就会有<code>*.vtk</code>生成，注意到这里面patch和internalMesh似乎被分开了。</li>
+<li>m4 - blockMeshDict</li>
+</ol>
+<h1 id="coding-style"><a href="#coding-style" class="headerlink" title="coding style"></a>coding style</h1><p>从官方coding style里面抠出了个人觉得受益的几个：</p>
+<ol>
+<li>缩进全用空格而不用tab</li>
+<li>输出的时候<code>&lt;&lt;</code>符号总是由四个空格的时候开始（尤其换行继续输出的时候）</li>
+<li>inline function 在对应的classNameI.H里</li>
+<li>在.C文件不open/close任何的namespace，用full scope i.e. <code>Foam::returnType Foam::className::functionName()</code>；但这里有特例，例如有几层namespace嵌套的时候:Foam/compressible/RASModels</li>
+<li>传入参数，如果是bool,label,scalar等用copy，其他更大的数据通过reference传址</li>
+<li>改用const就用const</li>
+<li>初始化用<code>const className&amp; variableName = otherClass.data();</code>而不是<code>const className&amp; variableName(otherClass.data())</code></li>
+<li>如果基类为virtual，那么子类前面也都加上关键词virtual</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/05/openfoamIntro/" data-id="ck8bfjmhz0004niv1fn3ln0mo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/07/12/Local-Refinement/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Local_Refinement
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/31/OpenFOAM/">OpenFOAM</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/someClasses/">OpenFOAM几个基本的类</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/06/QandA/">Q&amp;A</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/26/LinuxCheatSheet/">Linux Cheat Sheet</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/cheat/">cheat</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Haining<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
