@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-  
-  <title>Linux Cheat Sheet | Here I write</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
   <meta name="description" content="bash1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980# kill一系列进程，ps 可能搞出很多其他不相干的进程号，一定要注意，而且前三行一定不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux Cheat Sheet">
@@ -16,75 +31,169 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux Cheat Sheet">
 <meta name="twitter:description" content="bash1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980# kill一系列进程，ps 可能搞出很多其他不相干的进程号，一定要注意，而且前三行一定不">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/26/LinuxCheatSheet/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Linux Cheat Sheet | Here I write</title>
   
-    <link rel="alternate" href="/atom.xml" title="Here I write" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
-</html>
-<body>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Here I write</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-LinuxCheatSheet" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/26/LinuxCheatSheet/" class="article-date">
-  <time datetime="2018-09-26T08:26:59.000Z" itemprop="datePublished">2018-09-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Linux Cheat Sheet
-    </h1>
-  
 
-      </header>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Here I write</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/LinuxCheatSheet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Haining">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Here I write">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux Cheat Sheet
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-26 16:26:59" itemprop="dateCreated datePublished" datetime="2018-09-26T16:26:59+08:00">2018-09-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-28 16:46:18" itemprop="dateModified" datetime="2020-03-28T16:46:18+08:00">2020-03-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
         <h1 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kill一系列进程，ps 可能搞出很多其他不相干的进程号，一定要注意，而且前三行一定不是，怎样通过awk滤过还不清楚</span></span><br><span class="line">$ ps | awk <span class="string">'&#123;print $1&#125;'</span> | xargs <span class="built_in">kill</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># check for all jobs including "nohup" (at the same login noed)</span></span><br><span class="line">$ ps -eaf | grep <span class="variable">$USER</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># check for graphic card status</span></span><br><span class="line"><span class="comment"># both Xorg and gnome-shell stores for cache (computer has already run for many days). After rebooting, there will be much less.</span></span><br><span class="line">$ nvidia-smi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># screen</span></span><br><span class="line"><span class="comment"># name a screen session</span></span><br><span class="line">$ screen -S someName</span><br><span class="line"><span class="comment"># detache from screen</span></span><br><span class="line">Ctrl + A <span class="keyword">then</span> D</span><br><span class="line"><span class="comment"># see running screen</span></span><br><span class="line">$ screen -ls</span><br><span class="line"><span class="comment"># re-attach to a screen</span></span><br><span class="line">$ screen -r ** </span><br><span class="line"></span><br><span class="line"><span class="comment"># rsync</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --dry-run</span></span><br><span class="line">$ rsync --dry-run -av --progress sourcefolder /destinationfolder --exclude thefoldertoexclude</span><br><span class="line"><span class="comment"># show progress</span></span><br><span class="line">$ rsync -av --progress sourcefolder /destinationfolder --exclude thefoldertoexclude</span><br><span class="line"><span class="comment"># rsync multiple files at one line, passwd input only once</span></span><br><span class="line">$ rsync -av remote:dirToCase/&#123;0.165,0.18,0.195,0.21,0.225&#125; /some/<span class="built_in">local</span>/dir/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># mkdir / rm / regular expressions / using &#123;&#125; for multiple-file usage</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create multiple dirs</span></span><br><span class="line">$ mkdir processor&#123;0..11&#125;</span><br><span class="line"><span class="comment"># rm directories under processor0, processor1, processor2, processor3 which is named 0.1</span></span><br><span class="line">$ rm -r processor&#123;0..3&#125;/0.1</span><br><span class="line"><span class="comment"># rm directories under processor* named '2.8*' '2.9*' using "regular expression"</span></span><br><span class="line">$ rm -r processor*/2.[89]*</span><br><span class="line"><span class="comment"># this is cool, delete files in any directory named as XEq*-cellPoint_p.xy or XEq*-cellPoint_U.xy</span></span><br><span class="line">$ rm */XEq*-cellPoint_&#123;p,U&#125;.xy   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># sort</span></span><br><span class="line"></span><br><span class="line">$ sort file.csv -n -t <span class="string">","</span> -k 22 -k 23 -o output </span><br><span class="line"><span class="comment"># sort file *.csv by colon 22 then by colon 23</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># find</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># counts for the number of directories including it self "." This also counts the hidden directories prefixed by '.'. This is actually a count for "newlines" because wc -l counts for newlines and -print produces output separated by newlines. Changing -print to -print0 which will separates output by null, then there will be no newline and wc -l will always give 0 as result.</span></span><br><span class="line">$ find . -maxdepth 1 -<span class="built_in">type</span> d -<span class="built_in">print</span> | wc -l </span><br><span class="line"></span><br><span class="line"><span class="comment"># find directories in . and grep the str (**fast**)</span></span><br><span class="line">$ find . -<span class="built_in">type</span> d | grep <span class="string">"2"</span> </span><br><span class="line"><span class="comment"># (**slower**) but only will not produce results of sub directory of '2' as the previous one did.</span></span><br><span class="line">$ find . -<span class="built_in">type</span> d -name <span class="string">'2'</span> -<span class="built_in">print</span>  <span class="comment"># dry run </span></span><br><span class="line">$ find . -<span class="built_in">type</span> d -name <span class="string">'2'</span> -delete <span class="comment"># this wont work !! instead : xxx | xargs rm -r 是有效的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># find file matching pattern (dry run) then delete them.</span></span><br><span class="line">$ find . -<span class="built_in">type</span> f -name <span class="string">'plotoverline.*.csv'</span> -<span class="built_in">print</span> </span><br><span class="line">$ find . -<span class="built_in">type</span> f -name <span class="string">'plotoverline.*.csv'</span> -delete </span><br><span class="line"><span class="comment"># find in somedir all subdirectories and chmod to defaut 775</span></span><br><span class="line">$ find somedir -<span class="built_in">type</span> d -<span class="built_in">exec</span> chmod 775 &#123;&#125; \;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># chmod</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># this will change subdirectories and files ! Which is normally not GOOD. You dont want to have files all green/executable.</span></span><br><span class="line">chmod -R 755 somedir  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># file</span></span><br><span class="line"></span><br><span class="line">$ file *.so        shared object</span><br><span class="line">$ file executable  dynamically/statically linked</span><br><span class="line">$ file *.a         ar archive</span><br></pre></td></tr></table></figure>
 <h1 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># search </span></span><br><span class="line">:/some_string\c    <span class="comment"># case insensitive</span></span><br><span class="line">:/some_string\C    <span class="comment"># case sensitive</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># git rid of ^M</span></span><br><span class="line"><span class="comment"># 有时候用vim打开文件会发现"^M"，如何去掉？</span></span><br><span class="line">$ dos2unix fileName</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多行选中</span></span><br><span class="line">ctrl + v (visual block) -&gt; </span><br><span class="line">use cursor (h j k l) to move and select a multi-line-block -&gt; </span><br><span class="line">s (insert) -&gt; </span><br><span class="line">input <span class="string">"#"</span> -&gt; </span><br><span class="line">Esc -&gt; </span><br><span class="line">all select block is <span class="keyword">then</span> replaced by <span class="string">"#"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1到10行，有caption关键词的行首加上#</span></span><br><span class="line">:1,10s/.*caption/<span class="comment">#\0/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># encoding (other than utf8)</span></span><br><span class="line">:<span class="built_in">set</span> fileencoding=iso-8859-1</span><br><span class="line"></span><br><span class="line"><span class="comment"># paste without autoindent</span></span><br><span class="line">:<span class="built_in">set</span> paste</span><br><span class="line"></span><br><span class="line"><span class="comment"># add cursorline</span></span><br><span class="line">:<span class="built_in">set</span> cursorline</span><br><span class="line"></span><br><span class="line"><span class="comment"># reload file</span></span><br><span class="line">:e</span><br><span class="line">:edit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遇到难缠的(可能是硬的tab，也就是当下如果vim配置是以空格来做tab，也能通过/\t，搜索得到，且vim光标摁'j'移动不到行首，会卡住在这些tab的位置)</span></span><br><span class="line"><span class="comment"># IndentationError: unindent does not match any outer indentation level</span></span><br><span class="line">:retab</span><br></pre></td></tr></table></figure>
@@ -101,139 +210,179 @@
 </ol>
 <h2 id="beamer"><a href="#beamer" class="headerlink" title="beamer"></a>beamer</h2><p>overlays :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">\only&lt;1&gt;&#123;&#125;</span><br><span class="line"></span><br><span class="line">\onlyenv&#123;&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;overprint&#125;</span><br><span class="line">    \onslide&lt;1&gt;</span><br><span class="line">\end&#123;overprint&#125;</span><br><span class="line"></span><br><span class="line">%...</span><br></pre></td></tr></table></figure></p>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/26/LinuxCheatSheet/" data-id="ck8bfknaz0000ppv1byh9nhoa" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
+
     
-<nav id="article-nav">
-  
-    <a href="/2018/10/06/QandA/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+    
+    
+
+      <footer class="post-footer">
+
         
-          Q&amp;A
+
+
         
-      </div>
-    </a>
-  
-  
-    <a href="/2018/09/19/cheat/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">cheat</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/19/cheat/" rel="prev" title="cheat">
+      <i class="fa fa-chevron-left"></i> cheat
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/06/QandA/" rel="next" title="Q&A">
+      Q&A <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/01/31/OpenFOAM/">OpenFOAM</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/09/someClasses/">OpenFOAM几个基本的类</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/06/QandA/">Q&amp;A</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/26/LinuxCheatSheet/">Linux Cheat Sheet</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/19/cheat/">cheat</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+          </div>
+          
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 Haining<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
     }
   });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#bash"><span class="nav-number">1.</span> <span class="nav-text">bash</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim"><span class="nav-number">2.</span> <span class="nav-text">vim</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git"><span class="nav-number">3.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#latex"><span class="nav-number">4.</span> <span class="nav-text">latex</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#beamer"><span class="nav-number">4.1.</span> <span class="nav-text">beamer</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Haining</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Haining</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
